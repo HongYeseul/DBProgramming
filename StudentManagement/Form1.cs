@@ -1,7 +1,9 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -14,15 +16,23 @@ namespace StudentManagement
 {
     public partial class Form1 : Form
     {
-        private bool loadCompleted_ = false;
+        //private bool loadCompleted_ = false;
+        private bool Load;
+        string strConn = "Server=49.50.174.201;Database=s5533142;Uid=s5533142;Pwd=s5533142;Charset=utf8";
+
         public Form1()
         {
+
             InitializeComponent();
             InitVariables();
         }
 
         private void InitVariables()
         {
+            StudentNumber();
+            Load = Properties.Settings.Default.load;
+            Console.WriteLine(Load);
+            
             comboBoxStudent2Gender.Items.Clear();
             comboBoxStudent2Gender.Items.Add("남자");
             comboBoxStudent2Gender.Items.Add("여자");
@@ -34,13 +44,17 @@ namespace StudentManagement
             comboBoxStudent1Gender.SelectedIndex = 0;
             comboBoxStudent2Gender.SelectedIndex = 0;
             comboBoxStudent3Gender.SelectedIndex = 0;
-            loadCompleted_ = true;
+            //loadCompleted_ = true;
 
-
-            BinaryWriter bw = new BinaryWriter(new FileStream("check.dat", FileMode.OpenOrCreate));
-            bw.Close();
+            if (Load)
+            {
+                checkBox1.Checked = true;
+                LoadStudent();
+            }
 
         }
+
+
 
         private void buttonLoadStudentInfo_Click(object sender, EventArgs e)
         {
@@ -85,24 +99,33 @@ namespace StudentManagement
 
         private void LoadStudent()
         {
+            using (MySqlConnection conn = new MySqlConnection(strConn))
+            {
+                conn.Open();
+                string sql = "SELECT * FROM student";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                int cnt = 0;
 
-            Stream rs = new FileStream("student.stu", FileMode.Open);
-            BinaryFormatter deserializer = new BinaryFormatter();
+                while (rdr.Read())
+                {
+                    Console.WriteLine(cnt++);
 
-            StudentInfo studentInfo = (StudentInfo)deserializer.Deserialize(rs);
-
-            rs.Close();
-
-            textBoxStudent1Name.Text = studentInfo.name;
-            textBoxStudent1ID.Text = studentInfo.sid;
-            comboBoxStudent1Gender.Text = studentInfo.gender;
-
+                    TextBox txtIDTarget = (Controls.Find("textBoxStudent" + cnt.ToString() +"ID", true)[0] as TextBox);
+                    TextBox txtNameTarget = (Controls.Find("textBoxStudent" + cnt.ToString() + "Name", true)[0] as TextBox);
+                    ComboBox cmbGenderTarget = (Controls.Find("comboBoxStudent" + cnt.ToString() + "Gender", true)[0] as ComboBox);
+                    TextBox txtMemoTarget = (Controls.Find("textBoxStudent" + cnt.ToString() + "Memo", true)[0] as TextBox);
+                    txtIDTarget.Text = (string)rdr["sid"];
+                    txtNameTarget.Text = (string)rdr["name"];
+                    cmbGenderTarget.Text = (string)rdr["gender"];
+                    txtMemoTarget.Text = (string)rdr["memo"].ToString();
+                }
+                rdr.Close();
+            }
         }
         #region Save Button
         private void SaveStudent1()
         {
-            if (loadCompleted_ == false)
-                return;
 
             StudentInfo studentInfo = new StudentInfo();
 
@@ -111,129 +134,131 @@ namespace StudentManagement
             studentInfo.gender = comboBoxStudent1Gender.Text;
 
 
-            Stream ws = new FileStream("student.stu", FileMode.Create);
-            BinaryFormatter serializer = new BinaryFormatter();
-            serializer.Serialize(ws, studentInfo);
-            ws.Close();
+            using (MySqlConnection conn = new MySqlConnection(strConn))
+            {
+                conn.Open();
+                string q = "UPDATE student SET name = '" + studentInfo.name + "', sid = '" + studentInfo.sid + "', gender = '" + studentInfo.gender + "' WHERE id = 1";
+                Console.WriteLine(q);
+                MySqlCommand cmd = new MySqlCommand(q, conn);
+                cmd.ExecuteNonQuery();
+            }
 
-            /*
-            BinaryWriter bw = new BinaryWriter(new FileStream("student1.dat", FileMode.Create));
-            Console.WriteLine("HEELLO");
-            bw.Write(textBoxStudent1Name.Text);
-            Console.WriteLine("BYY");
-            bw.Write(textBoxStudent1ID.Text);
-            bw.Write(comboBoxStudent1Gender.Text);
-            bw.Write(textBoxStudent1Memo.Text);
-            
-            Console.WriteLine("WRITE DATA DONE");
-            bw.Close();*/
         }
 
         private void SaveStudent2()
         {
-            if (loadCompleted_ == false)
-                return;
-            BinaryWriter bw = new BinaryWriter(new FileStream("student2.dat", FileMode.Create));
-            Console.WriteLine("HEELLO");
-            bw.Write(textBoxStudent2Name.Text);
-            Console.WriteLine("BYY");
-            bw.Write(textBoxStudent2ID.Text);
-            bw.Write(comboBoxStudent2Gender.Text);
-            bw.Write(textBoxStudent2Memo.Text);
-            bw.Close();
+            StudentInfo studentInfo = new StudentInfo();
+
+            studentInfo.name = textBoxStudent2Name.Text;
+            studentInfo.sid = textBoxStudent2ID.Text;
+            studentInfo.gender = comboBoxStudent2Gender.Text;
+
+
+            using (MySqlConnection conn = new MySqlConnection(strConn))
+            {
+                conn.Open();
+                string q = "UPDATE student SET name = '" + studentInfo.name + "', sid = '" + studentInfo.sid + "', gender = '" + studentInfo.gender + "' WHERE id = 2";
+                Console.WriteLine(q);
+                MySqlCommand cmd = new MySqlCommand(q, conn);
+                cmd.ExecuteNonQuery();
+            }
         }
 
         private void SaveStudent3()
         {
-            if (loadCompleted_ == false)
-                return;
-            BinaryWriter bw = new BinaryWriter(new FileStream("student3.dat", FileMode.Create));
-            Console.WriteLine("HEELLO");
-            bw.Write(textBoxStudent3Name.Text);
-            Console.WriteLine("BYY");
-            bw.Write(textBoxStudent3ID.Text);
-            bw.Write(comboBoxStudent3Gender.Text);
-            bw.Write(textBoxStudent2Memo.Text);
-            bw.Close();
+            StudentInfo studentInfo = new StudentInfo();
+
+            studentInfo.name = textBoxStudent3Name.Text;
+            studentInfo.sid = textBoxStudent3ID.Text;
+            studentInfo.gender = comboBoxStudent3Gender.Text;
+
+
+            using (MySqlConnection conn = new MySqlConnection(strConn))
+            {
+                conn.Open();
+                string q = "UPDATE student SET name = '" + studentInfo.name + "', sid = '" + studentInfo.sid + "', gender = '" + studentInfo.gender + "' WHERE id = 3";
+                Console.WriteLine(q);
+                MySqlCommand cmd = new MySqlCommand(q, conn);
+                cmd.ExecuteNonQuery();
+            }
         }
         #endregion
 
         #region Student Delete Click Handler
         private void buttonStudent1Delete_Click(object sender, EventArgs e)
         {
-            BinaryWriter bw = new BinaryWriter(new FileStream("student1.dat", FileMode.Create));
-            Console.WriteLine("HEELLO");
-           // bw.Write("");
-            textBoxStudent1Name.Text = "학생정보 없음";
-            textBoxStudent1ID.Clear();
-            comboBoxStudent1Gender.SelectedIndex = 0;
-            textBoxStudent1Memo.Clear();
-            bw.Close();
+            using (MySqlConnection conn = new MySqlConnection(strConn))
+            {
+                conn.Open();
+                string q = "UPDATE student SET name = '"+"학생정보 없음"+"', sid = '', gender = '"+"남자"+"' WHERE id = 1";
+                Console.WriteLine(q);
+                MySqlCommand cmd = new MySqlCommand(q, conn);
+                cmd.ExecuteNonQuery();
+            }
             StudentNumber();
         }
 
         private void buttonStudent2Delete_Click(object sender, EventArgs e)
         {
-            BinaryWriter bw = new BinaryWriter(new FileStream("student2.dat", FileMode.Create));
-            Console.WriteLine("HEELLO");
-            bw.Write("");
-            textBoxStudent2Name.Text = "학생정보 없음";
-            textBoxStudent2ID.Clear();
-            comboBoxStudent2Gender.SelectedIndex = 0;
-            textBoxStudent2Memo.Clear();
-            bw.Close();
+            using (MySqlConnection conn = new MySqlConnection(strConn))
+            {
+                conn.Open();
+                string q = "UPDATE student SET name = '" + "학생정보 없음" + "', sid = '', gender = '" + "남자" + "' WHERE id = 2";
+                Console.WriteLine(q);
+                MySqlCommand cmd = new MySqlCommand(q, conn);
+                cmd.ExecuteNonQuery();
+            }
             StudentNumber();
         }
 
         private void buttonStudent3Delete_Click(object sender, EventArgs e)
         {
-            BinaryWriter bw = new BinaryWriter(new FileStream("student3.dat", FileMode.Create));
-            Console.WriteLine("HEELLO");
-            bw.Write("");
-            textBoxStudent3Name.Text = "학생정보 없음";
-            textBoxStudent3ID.Clear();
-            comboBoxStudent3Gender.SelectedIndex = 0;
-            textBoxStudent3Memo.Clear();
-            bw.Close();
+            using (MySqlConnection conn = new MySqlConnection(strConn))
+            {
+                conn.Open();
+                string q = "UPDATE student SET name = '" + "학생정보 없음" + "', sid = '', gender = '" + "남자" + "' WHERE id = 3";
+                Console.WriteLine(q);
+                MySqlCommand cmd = new MySqlCommand(q, conn);
+                cmd.ExecuteNonQuery();
+            }
             StudentNumber();
         }
         #endregion
 
         private void StudentNumber()
         {
-            BinaryReader br1 = new BinaryReader(new FileStream("student1.dat", FileMode.Open));
-            BinaryReader br2 = new BinaryReader(new FileStream("student2.dat", FileMode.Open));
-            BinaryReader br3 = new BinaryReader(new FileStream("student3.dat", FileMode.Open));
-            int cnt = 0;
-            FileInfo info1 = new FileInfo("student1.dat");
-            FileInfo info2 = new FileInfo("student2.dat");
-            FileInfo info3 = new FileInfo("student3.dat");
+            using (MySqlConnection conn = new MySqlConnection(strConn))
+            {
+                conn.Open();
+                string sql = "SELECT * FROM student";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                int cnt = 0;
 
-            if (info1.Length > 1)
-                cnt++;
-            if (info2.Length > 1)
-                cnt++;
-            if (info3.Length > 1)
-                cnt++;
-
-            StudentNum.Text = cnt.ToString();
-
-            br1.Close();
-            br2.Close();
-            br3.Close();
+                while (rdr.Read())
+                {
+                    if (rdr["sid"].ToString().Length > 0) // 학생 존재함
+                        cnt++;
+                }
+                StudentNum.Text = cnt.ToString();
+                rdr.Close();
+            }
         }
-
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            BinaryWriter bw = new BinaryWriter(new FileStream("check.dat", FileMode.Create));
-
             if (checkBox1.Checked)
-                bw.Write("Checked");
+            {
+                Console.WriteLine("Checked");
+                Properties.Settings.Default.load = true;
+                Properties.Settings.Default.Save();
+            }
             else
-                bw.Write("");
-
-            bw.Close();
+            {
+                Properties.Settings.Default.load = false;
+                Properties.Settings.Default.Save();
+            }
+            Console.WriteLine("Save");
         }
     }
 }
