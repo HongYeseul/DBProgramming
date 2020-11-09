@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentManagement", "Studen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketBrowser", "MarketBrowser\MarketBrowser.csproj", "{A7B4131E-C4ED-4370-94DC-172DE6C8171F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBP_DBDBDIB_TEST", "DBP_DBDBDIB_TEST\DBP_DBDBDIB_TEST.csproj", "{FBB0FA84-E67A-4B46-A397-F234F2EA1BA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{A7B4131E-C4ED-4370-94DC-172DE6C8171F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7B4131E-C4ED-4370-94DC-172DE6C8171F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7B4131E-C4ED-4370-94DC-172DE6C8171F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBB0FA84-E67A-4B46-A397-F234F2EA1BA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBB0FA84-E67A-4B46-A397-F234F2EA1BA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBB0FA84-E67A-4B46-A397-F234F2EA1BA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBB0FA84-E67A-4B46-A397-F234F2EA1BA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
