@@ -28,56 +28,57 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.btnLogin = new System.Windows.Forms.Button();
+            this.txtBoxID = new System.Windows.Forms.TextBox();
+            this.txtBoxPW = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxLogin = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // btnLogin
             // 
-            this.button1.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.button1.Location = new System.Drawing.Point(841, 359);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 32);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Login";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnLogin.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.btnLogin.FlatAppearance.BorderSize = 0;
+            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogin.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogin.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnLogin.Location = new System.Drawing.Point(841, 359);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(110, 32);
+            this.btnLogin.TabIndex = 3;
+            this.btnLogin.Text = "Login";
+            this.btnLogin.UseVisualStyleBackColor = false;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
-            // textBox1
+            // txtBoxID
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBox1.Location = new System.Drawing.Point(639, 265);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(312, 32);
-            this.textBox1.TabIndex = 4;
-            this.textBox1.Text = "asdf";
-            this.textBox1.UseWaitCursor = true;
+            this.txtBoxID.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.txtBoxID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBoxID.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxID.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txtBoxID.Location = new System.Drawing.Point(639, 265);
+            this.txtBoxID.Name = "txtBoxID";
+            this.txtBoxID.Size = new System.Drawing.Size(312, 32);
+            this.txtBoxID.TabIndex = 4;
+            this.txtBoxID.UseWaitCursor = true;
             // 
-            // textBox2
+            // txtBoxPW
             // 
-            this.textBox2.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBox2.Location = new System.Drawing.Point(639, 303);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(312, 32);
-            this.textBox2.TabIndex = 5;
-            this.textBox2.UseWaitCursor = true;
+            this.txtBoxPW.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.txtBoxPW.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBoxPW.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxPW.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.txtBoxPW.Location = new System.Drawing.Point(639, 303);
+            this.txtBoxPW.Name = "txtBoxPW";
+            this.txtBoxPW.PasswordChar = '*';
+            this.txtBoxPW.Size = new System.Drawing.Size(312, 32);
+            this.txtBoxPW.TabIndex = 5;
+            this.txtBoxPW.UseWaitCursor = true;
             // 
             // pictureBox1
             // 
@@ -125,16 +126,17 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Hello.";
             // 
-            // checkBox1
+            // checkBoxLogin
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("함초롬돋움", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.checkBox1.Location = new System.Drawing.Point(639, 366);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(126, 21);
-            this.checkBox1.TabIndex = 7;
-            this.checkBox1.Text = "로그인 상태 유지";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBoxLogin.AutoSize = true;
+            this.checkBoxLogin.Font = new System.Drawing.Font("함초롬돋움", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.checkBoxLogin.Location = new System.Drawing.Point(639, 366);
+            this.checkBoxLogin.Name = "checkBoxLogin";
+            this.checkBoxLogin.Size = new System.Drawing.Size(126, 21);
+            this.checkBoxLogin.TabIndex = 7;
+            this.checkBoxLogin.Text = "로그인 상태 유지";
+            this.checkBoxLogin.UseVisualStyleBackColor = true;
+            this.checkBoxLogin.CheckedChanged += new System.EventHandler(this.checkBoxLogin_CheckedChanged);
             // 
             // Form1
             // 
@@ -142,11 +144,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(1100, 600);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.checkBoxLogin);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.txtBoxPW);
+            this.Controls.Add(this.txtBoxID);
+            this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
             this.Text = "DBDBDIB";
@@ -163,11 +165,11 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.TextBox txtBoxID;
+        private System.Windows.Forms.TextBox txtBoxPW;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxLogin;
     }
 }
 
